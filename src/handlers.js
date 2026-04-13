@@ -1,11 +1,11 @@
-const { getYears, getCarMakes, getModelsByMakeAndYear } = require("./vpic");
-const {
+import { getYears, getCarMakes, getModelsByMakeAndYear } from "./vpic.js";
+import {
   handleOptions,
   sendBadRequest,
   sendJson,
   sendMethodNotAllowed,
   sendNotFound
-} = require("./http");
+} from "./http.js";
 
 function getBaseUrl(request) {
   return `http://${request.headers.host || "localhost"}`;
@@ -209,7 +209,7 @@ async function handleRouter(request, response) {
   sendNotFound(response);
 }
 
-module.exports = {
+export {
   handleHealth,
   handleMakes,
   handleModels,

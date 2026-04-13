@@ -27,6 +27,4 @@ class MemoryCache {
   }
 }
 
-module.exports = {
-  MemoryCache
-};
+export { MemoryCache };

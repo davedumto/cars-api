@@ -1,5 +1,5 @@
-const { MemoryCache } = require("./cache");
-const config = require("./config");
+import { MemoryCache } from "./cache.js";
+import config from "./config.js";
 
 const cache = new MemoryCache(config.cacheTtlMs);
 
@@ -83,7 +83,7 @@ async function getModelsByMakeAndYear({ makeId, makeName, year }) {
     .sort((left, right) => left.modelName.localeCompare(right.modelName));
 }
 
-module.exports = {
+export {
   getYears,
   getCarMakes,
   getModelsByMakeAndYear

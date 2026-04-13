@@ -7,10 +7,12 @@ function getNumber(value, fallback) {
   return Number.isNaN(parsed) ? fallback : parsed;
 }
 
-module.exports = {
+const config = {
   port: getNumber(process.env.PORT, DEFAULT_PORT),
   vpicBaseUrl: process.env.VPIC_BASE_URL || "https://vpic.nhtsa.dot.gov/api/vehicles",
   allowedOrigins: process.env.ALLOWED_ORIGINS || "*",
   cacheTtlMs: getNumber(process.env.CACHE_TTL_MS, DEFAULT_CACHE_TTL_MS),
   minYear: getNumber(process.env.MIN_YEAR, DEFAULT_MIN_YEAR)
 };
+
+export default config;

@@ -1,5 +1,5 @@
-const { handleMakes } = require("../src/handlers");
+import { handleMakes } from "../src/handlers.js";
 
-module.exports = async function handler(request, response) {
+export default async function handler(request, response) {
   await handleMakes(request, response);
-};
+}

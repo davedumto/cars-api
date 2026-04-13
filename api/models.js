@@ -1,5 +1,5 @@
-const { handleModels } = require("../src/handlers");
+import { handleModels } from "../src/handlers.js";
 
-module.exports = async function handler(request, response) {
+export default async function handler(request, response) {
   await handleModels(request, response);
-};
+}

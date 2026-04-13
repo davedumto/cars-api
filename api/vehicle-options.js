@@ -1,5 +1,5 @@
-const { handleVehicleOptions } = require("../src/handlers");
+import { handleVehicleOptions } from "../src/handlers.js";
 
-module.exports = async function handler(request, response) {
+export default async function handler(request, response) {
   await handleVehicleOptions(request, response);
-};
+}

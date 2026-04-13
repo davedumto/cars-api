@@ -86,6 +86,7 @@ Recommended dropdown flow:
 
 - This project now works both as a local Node server and as Vercel API functions.
 - On Vercel, the routes live under `/api/*` and do not require a custom `server.listen(...)` process.
+- The project uses ESM (`\"type\": \"module\"`) so Vercel can load the function exports correctly.
 - You can still deploy the local server version to Render, Railway, Fly.io, or a VPS.
 - Set `ALLOWED_ORIGINS` to your GoHighLevel page domain in production.
 - The API depends on the NHTSA vPIC service for live make/model data.

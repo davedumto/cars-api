@@ -1,5 +1,5 @@
-const { handleHealth } = require("../src/handlers");
+import { handleHealth } from "../src/handlers.js";
 
-module.exports = async function handler(request, response) {
+export default async function handler(request, response) {
   await handleHealth(request, response);
-};
+}

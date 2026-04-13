@@ -1,4 +1,4 @@
-const config = require("./config");
+import config from "./config.js";
 
 function sendJson(response, statusCode, payload) {
   response.writeHead(statusCode, {
@@ -40,7 +40,7 @@ function handleOptions(response) {
   response.end();
 }
 
-module.exports = {
+export {
   handleOptions,
   sendBadRequest,
   sendJson,

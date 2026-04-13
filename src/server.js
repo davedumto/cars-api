@@ -1,6 +1,7 @@
-const http = require("http");
-const config = require("./config");
-const { handleRouter } = require("./handlers");
+import http from "http";
+import { fileURLToPath } from "url";
+import config from "./config.js";
+import { handleRouter } from "./handlers.js";
 
 function createServer() {
   return http.createServer((request, response) => {
@@ -16,12 +17,14 @@ function startServer() {
   return server;
 }
 
-if (require.main === module) {
+const currentFilePath = fileURLToPath(import.meta.url);
+
+if (process.argv[1] === currentFilePath) {
   startServer();
 }
 
-module.exports = {
+export {
   createServer,
-  handleRequest: handleRouter,
+  handleRouter as handleRequest,
   startServer
 };
