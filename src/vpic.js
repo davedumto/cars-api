@@ -1,5 +1,6 @@
 import { MemoryCache } from "./cache.js";
 import config from "./config.js";
+import { getMakeAssetData } from "./make-assets.js";
 
 const cache = new MemoryCache(config.cacheTtlMs);
 
@@ -30,19 +31,29 @@ function cleanText(value) {
 }
 
 function normalizeMake(make) {
+  const name = cleanText(make.MakeName);
+  const assets = getMakeAssetData(name);
+
   return {
     id: make.MakeId,
-    name: cleanText(make.MakeName)
+    name,
+    website: assets.website,
+    logoUrl: assets.logoUrl
   };
 }
 
 function normalizeModel(model) {
+  const makeName = cleanText(model.Make_Name || model.MakeName);
+  const assets = getMakeAssetData(makeName);
+
   return {
     makeId: model.Make_ID || model.MakeId || null,
-    makeName: cleanText(model.Make_Name || model.MakeName),
+    makeName,
     modelId: model.Model_ID || model.ModelId || null,
     modelName: cleanText(model.Model_Name || model.ModelName),
-    year: model.ModelYear || null
+    year: model.ModelYear || null,
+    makeWebsite: assets.website,
+    makeLogoUrl: assets.logoUrl
   };
 }
 

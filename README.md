@@ -13,6 +13,7 @@ https://cars-api-azure.vercel.app
 - Returns a list of years for a dropdown.
 - Returns car makes from the NHTSA vPIC dataset.
 - Returns car models for a selected make and year.
+- Returns make logo metadata that the frontend can display.
 - Enables CORS so your frontend form can call it from the browser.
 
 ## Quick start
@@ -98,11 +99,15 @@ Example response:
   "data": [
     {
       "id": 448,
-      "name": "TOYOTA"
+      "name": "TOYOTA",
+      "website": "https://www.toyota.com",
+      "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.toyota.com"
     },
     {
       "id": 474,
-      "name": "HONDA"
+      "name": "HONDA",
+      "website": "https://www.honda.com",
+      "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.honda.com"
     }
   ]
 }
@@ -147,14 +152,18 @@ Example response:
       "makeName": "TOYOTA",
       "modelId": 1861,
       "modelName": "Camry",
-      "year": "2024"
+      "year": "2024",
+      "makeWebsite": "https://www.toyota.com",
+      "makeLogoUrl": "https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.toyota.com"
     },
     {
       "makeId": 448,
       "makeName": "TOYOTA",
       "modelId": 1863,
       "modelName": "Corolla",
-      "year": "2024"
+      "year": "2024",
+      "makeWebsite": "https://www.toyota.com",
+      "makeLogoUrl": "https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.toyota.com"
     }
   ]
 }
@@ -217,7 +226,9 @@ Example response with `year` only:
     "makes": [
       {
         "id": 448,
-        "name": "TOYOTA"
+        "name": "TOYOTA",
+        "website": "https://www.toyota.com",
+        "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.toyota.com"
       }
     ]
   }
@@ -242,12 +253,26 @@ Example response with `year` and `makeId`:
         "makeName": "TOYOTA",
         "modelId": 1861,
         "modelName": "Camry",
-        "year": "2024"
+        "year": "2024",
+        "makeWebsite": "https://www.toyota.com",
+        "makeLogoUrl": "https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.toyota.com"
       }
     ]
   }
 }
 ```
+
+## Logo support
+
+The API now returns brand logo metadata for supported makes.
+
+- `/api/makes` returns `website` and `logoUrl`
+- `/api/models` returns `makeWebsite` and `makeLogoUrl`
+
+Important:
+
+- these are make logos, not unique logos for each individual model
+- some rare makes may return `null` if no website mapping has been added yet
 
 ## Fetching guide
 
@@ -266,6 +291,14 @@ const payload = await response.json();
 console.log(payload.data);
 ```
 
+You can display the logo like this:
+
+```js
+payload.data.forEach((make) => {
+  console.log(make.name, make.logoUrl);
+});
+```
+
 ### Fetch makes
 
 ```js
@@ -273,6 +306,14 @@ const response = await fetch("https://cars-api-azure.vercel.app/api/makes");
 const payload = await response.json();
 
 console.log(payload.data);
+```
+
+You can display the make logo from the model response like this:
+
+```js
+payload.data.forEach((model) => {
+  console.log(model.modelName, model.makeLogoUrl);
+});
 ```
 
 ### Fetch models with `makeId`
@@ -379,7 +420,9 @@ async function loadModels(year, makeId) {
   "data": [
     {
       "id": 448,
-      "name": "TOYOTA"
+      "name": "TOYOTA",
+      "website": "https://www.toyota.com",
+      "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.toyota.com"
     }
   ]
 }
@@ -402,7 +445,9 @@ async function loadModels(year, makeId) {
       "makeName": "TOYOTA",
       "modelId": 1861,
       "modelName": "Camry",
-      "year": "2024"
+      "year": "2024",
+      "makeWebsite": "https://www.toyota.com",
+      "makeLogoUrl": "https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.toyota.com"
     }
   ]
 }

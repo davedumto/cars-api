@@ -34,6 +34,8 @@ The idea is:
 
 This makes the form easier to fill and helps reduce typing mistakes.
 
+It can also return the car make logo so you can show the brand icon in your frontend.
+
 ## The endpoints you will use
 
 ### 1. Get all years
@@ -79,11 +81,15 @@ Example response:
   "data": [
     {
       "id": 448,
-      "name": "TOYOTA"
+      "name": "TOYOTA",
+      "website": "https://www.toyota.com",
+      "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.toyota.com"
     },
     {
       "id": 474,
-      "name": "HONDA"
+      "name": "HONDA",
+      "website": "https://www.honda.com",
+      "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.honda.com"
     }
   ]
 }
@@ -93,6 +99,7 @@ Important:
 
 - each make has an `id`
 - that `id` is what you use to get the models
+- `logoUrl` is what you use to show the brand logo in the frontend
 
 ## 3. Get car models
 
@@ -133,18 +140,27 @@ Example response:
       "makeName": "TOYOTA",
       "modelId": 1861,
       "modelName": "Camry",
-      "year": "2024"
+      "year": "2024",
+      "makeWebsite": "https://www.toyota.com",
+      "makeLogoUrl": "https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.toyota.com"
     },
     {
       "makeId": 448,
       "makeName": "TOYOTA",
       "modelId": 1863,
       "modelName": "Corolla",
-      "year": "2024"
+      "year": "2024",
+      "makeWebsite": "https://www.toyota.com",
+      "makeLogoUrl": "https://www.google.com/s2/favicons?sz=128&domain_url=https%3A%2F%2Fwww.toyota.com"
     }
   ]
 }
 ```
+
+Important:
+
+- the model response returns the make logo as `makeLogoUrl`
+- this is the brand logo, not a unique logo for each car model
 
 ## 4. Health check
 
@@ -211,6 +227,11 @@ https://cars-api-azure.vercel.app/api/models?year=2024&makeId=448
 ```
 
 Then the API returns Toyota models for 2024.
+
+If you want to show the Toyota logo too, use:
+
+- `logoUrl` from `/api/makes`
+- or `makeLogoUrl` from `/api/models`
 
 ## What you should save in the form
 
